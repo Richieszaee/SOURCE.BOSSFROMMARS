@@ -507,6 +507,132 @@ input[type="checkbox"]{width:15px;height:15px;accent-color:var(--pl);cursor:poin
   #recentActivity .hi,#statusOverview>div{min-width:0!important}
   #recentActivity{overflow-wrap:anywhere}
 }
+
+/* ===== CSS SETORAN HARIAN & GRID SURAH ===== */
+.sh-table-container {
+  overflow-x: auto;
+  max-height: 600px;
+  border-radius: 12px;
+  border: 1px solid var(--brd);
+  box-shadow: var(--sh);
+}
+.sh-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 12.5px;
+}
+.sh-table th, .sh-table td {
+  border-right: 1px solid var(--brd);
+  border-bottom: 1px solid var(--brd);
+  padding: 10px 12px;
+  text-align: center;
+  white-space: nowrap;
+}
+.sh-table th {
+  background: var(--p50);
+  color: var(--pl);
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.sh-table th.sticky-col, .sh-table td.sticky-col {
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  z-index: 5;
+  border-right: 2px solid var(--brd2) !important;
+  text-align: left;
+  font-weight: 600;
+  box-shadow: 4px 0 8px rgba(0,0,0,0.03);
+}
+.sh-table th.sticky-col {
+  z-index: 15;
+  background: var(--p50);
+}
+.sh-cell {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sh-cell:hover {
+  background: var(--p50) !important;
+}
+.cell-tahsin {
+  background: #fdf2e9;
+  color: #a84e34;
+  font-weight: bold;
+  font-size: 11px;
+  border-radius: 5px;
+  padding: 4px 8px;
+  border: 1px solid #f5c2b3;
+  display: inline-block;
+}
+.cell-score {
+  font-weight: 700;
+  color: var(--g);
+  font-size: 14px;
+}
+.cell-murajah {
+  font-weight: 700;
+  color: var(--b);
+  font-size: 14px;
+}
+.cell-empty {
+  color: var(--tl);
+  font-style: italic;
+}
+.active-subtab {
+  background: var(--pl) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: var(--sh);
+}
+.sh-cal-cell {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(.16,1,.3,1);
+}
+.sh-cal-cell:hover {
+  transform: scale(1.15);
+  box-shadow: var(--sh);
+}
+.sh-cal-empty {
+  color: var(--tl);
+  background: #fdfdfb;
+  border: 1px dashed var(--brd2);
+}
+.sh-cal-ziyadah {
+  background: #e6f4ea;
+  color: var(--g);
+  border: 1px solid #a3cfbb;
+}
+.sh-cal-murajah {
+  background: #e8f0fe;
+  color: var(--b);
+  border: 1px solid #adc5f7;
+}
+.sh-cal-tahsin {
+  background: #fef7e0;
+  color: var(--y);
+  border: 1px solid #fbe09e;
+}
+.sh-cal-multiple {
+  background: #f3e8fd;
+  color: var(--v);
+  border: 1px solid #dcbdfb;
+}
 </style>
 </head>
 <body>
@@ -555,6 +681,7 @@ input[type="checkbox"]{width:15px;height:15px;accent-color:var(--pl);cursor:poin
     <div class="sb-item" onclick="showPage('classes')"><i class="fas fa-school"></i> Kelas</div>
     <div class="sb-item" onclick="showPage('teachers')"><i class="fas fa-chalkboard-teacher"></i> Tenaga Pendidik</div>
     <div class="sb-item" onclick="showPage('hafalan')"><i class="fas fa-star"></i> Progres Hafalan</div>
+    <div class="sb-item" onclick="showPage('setoranharian')"><i class="fas fa-calendar-alt"></i> Jurnal & Grid Surah</div>
     <div class="sb-section">Akademik</div>
     <div class="sb-item" onclick="showPage('permits')"><i class="fas fa-file-alt"></i> Izin & BK</div>
     <div class="sb-item" onclick="showPage('rapor')"><i class="fas fa-file-alt"></i> Rapor PTS</div>
@@ -571,6 +698,7 @@ input[type="checkbox"]{width:15px;height:15px;accent-color:var(--pl);cursor:poin
 <div id="bottomNav">
   <button class="bn" data-p="dashboard" onclick="showPage('dashboard')"><i class="fas fa-th-large"></i><span>Beranda</span><span class="bn-dot"></span></button>
   <button class="bn" data-p="hafalan" onclick="showPage('hafalan')"><i class="fas fa-star"></i><span>Hafalan</span><span class="bn-dot"></span></button>
+  <button class="bn" data-p="setoranharian" onclick="showPage('setoranharian')"><i class="fas fa-calendar-alt"></i><span>Jurnal & Grid</span><span class="bn-dot"></span></button>
   <button class="bn" data-p="rapor" onclick="showPage('rapor')"><i class="fas fa-file-alt"></i><span>Rapor</span><span class="bn-dot"></span></button>
   <button class="bn" data-p="classes" onclick="showPage('classes')"><i class="fas fa-school"></i><span>Kelas</span><span class="bn-dot"></span></button>
   <button class="bn" data-p="ai" onclick="showPage('ai')"><i class="fas fa-bolt"></i><span>AI</span><span class="bn-dot"></span></button>
@@ -638,6 +766,7 @@ input[type="checkbox"]{width:15px;height:15px;accent-color:var(--pl);cursor:poin
     <div id="page-history" class="page-content" style="display:none"></div>
     <div id="page-ai" class="page-content" style="display:none"></div>
     <div id="page-settings" class="page-content" style="display:none"></div>
+    <div id="page-setoranharian" class="page-content" style="display:none"></div>
   </div></div>
 </div>
 </div>
@@ -692,8 +821,8 @@ function togglePassVis(){const i=document.getElementById('loginPass'),c=document
 function doLogin(){const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value;if(u===data.credentials.username&&p===data.credentials.password){document.getElementById('loginScreen').style.display='none';document.body.classList.add('app-ready');document.getElementById('appContainer').style.display='block';document.getElementById('currentUserDisplay').textContent=u;renderDashboard();toast(`${greet()}! Selamat datang, ${u}.`)}else{document.getElementById('loginError').style.display='block';document.getElementById('loginError').textContent='Kredensial tidak valid.';toast('Autentikasi gagal.','error')}}
 document.getElementById('loginPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});document.getElementById('loginUser').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
 function doLogout(){document.body.classList.remove('app-ready');document.getElementById('appContainer').style.display='none';document.getElementById('loginScreen').style.display='flex';document.getElementById('loginPass').value='';toast('Sesi berakhir. Sampai jumpa!','info')}
-const PT={dashboard:'Beranda',students:'Peserta Didik',classes:'Kelas',teachers:'Tenaga Pendidik',hafalan:'Progres Hafalan',permits:'Izin & BK',rapor:'Rapor PTS',targets:'Target Hafalan',insights:'Wawasan',history:'Log Aktivitas',ai:'Manajemen AI',settings:'Pengaturan'};
-function showPage(p){document.querySelectorAll('.page-content').forEach(e=>e.style.display='none');document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));const el=document.getElementById('page-'+p);if(el){el.style.display='block';el.classList.remove('fade');void el.offsetWidth;el.classList.add('fade')}document.getElementById('greetingText').textContent=PT[p]||p;document.querySelectorAll('.sb-item').forEach(s=>{if(s.textContent.trim()===(PT[p]||'').trim())s.classList.add('active')});document.querySelectorAll('#bottomNav .bn').forEach(b=>b.classList.toggle('active',b.dataset.p===p));({dashboard:renderDashboard,students:renderStudents,classes:renderClasses,teachers:renderTeachers,hafalan:renderHafalan,permits:renderPermits,rapor:renderRapor,targets:renderTargets,insights:renderInsights,history:renderHistory,ai:renderAIManagement,settings:renderSettings})[p]?.();if(p==='dashboard')setTimeout(_endDash,50);if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open')}
+const PT={dashboard:'Beranda',students:'Peserta Didik',classes:'Kelas',teachers:'Tenaga Pendidik',hafalan:'Progres Hafalan',permits:'Izin & BK',rapor:'Rapor PTS',targets:'Target Hafalan',insights:'Wawasan',history:'Log Aktivitas',ai:'Manajemen AI',settings:'Pengaturan',setoranharian:'Jurnal & Grid Surah'};
+function showPage(p){document.querySelectorAll('.page-content').forEach(e=>e.style.display='none');document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));const el=document.getElementById('page-'+p);if(el){el.style.display='block';el.classList.remove('fade');void el.offsetWidth;el.classList.add('fade')}document.getElementById('greetingText').textContent=PT[p]||p;document.querySelectorAll('.sb-item').forEach(s=>{if(s.textContent.trim()===(PT[p]||'').trim())s.classList.add('active')});document.querySelectorAll('#bottomNav .bn').forEach(b=>b.classList.toggle('active',b.dataset.p===p));({dashboard:renderDashboard,students:renderStudents,classes:renderClasses,teachers:renderTeachers,hafalan:renderHafalan,permits:renderPermits,rapor:renderRapor,targets:renderTargets,insights:renderInsights,history:renderHistory,ai:renderAIManagement,settings:renderSettings,setoranharian:renderSetoranharian})[p]?.();if(p==='dashboard')setTimeout(_endDash,50);if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open')}
 function toggleSidebar(){const s=document.getElementById('sidebar');if(window.innerWidth<=768)s.classList.toggle('open');else{s.classList.toggle('closed');document.getElementById('mainContent').classList.toggle('full')}}
 function openModal(h){document.getElementById('modalBox').innerHTML=h;document.getElementById('modalOverlay').classList.add('on')}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('on')}
@@ -1085,6 +1214,776 @@ function pdfSuratIzin(permitId){
   pdfFooter(doc);doc.save('Surat_Izin_'+s.name.replace(/\s+/g,'_')+'_'+today()+'.pdf');
   toast('Surat izin '+s.name+' berhasil diunduh.');
   logAction('Mencetak surat izin: '+s.name)
+}
+
+/* ===== JAVASCRIPT FOR SETORAN HARIAN & GRID SURAH ===== */
+let shActiveSubtab = 'grid';
+let shSelectedKelas = '';
+let shSelectedMonth = '';
+
+const JUZ30_SURAHS = [
+  "Al-Fatihah", "An-Naas", "Al-Falaq", "Al-Ikhlas", "Al-Lahab", "An-Nashr", "Al-Kafirun",
+  "Al-Kautsar", "Al-Ma'un", "Al-Quraisy", "Al-Fiil", "Al-Humazah", "Al-'Asr",
+  "At-Takatsur", "Al-Qari'ah", "Al-'Adiyat", "Al-Zalzalah", "Al-Bayyinah", "Al-Qadr",
+  "Al-'Alaq", "At-Tin", "Al-Insyirah", "Ad-Duha", "Al-Lail", "Asy-Syams", "Al-Balad",
+  "Al-Fajr", "Al-Ghasyiyah", "Al-A'la", "At-Tariq", "Al-Buruj", "Al-Insyigaq",
+  "Al-Mutaffifin", "Al-Infitar", "At-Takwir", "Abasa", "An-Nazi'at", "An-Naba"
+];
+
+function switchShSubtab(tab) {
+  shActiveSubtab = tab;
+  renderSetoranharian();
+}
+
+function renderSetoranharian() {
+  const container = document.getElementById('page-setoranharian');
+  if (!container) return;
+
+  const classesList = [...new Set(data.students.map(s => s.kelas))].sort();
+  if (!shSelectedKelas && classesList.length > 0) {
+    shSelectedKelas = classesList.includes('XI-IPA') ? 'XI-IPA' : classesList[0];
+  }
+
+  if (!shSelectedMonth) {
+    const now = new Date();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    shSelectedMonth = `${now.getFullYear()}-${mm}`;
+  }
+
+  container.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+      <div class="stitle"><div class="st-i"><i class="fas fa-calendar-alt"></i></div> Jurnal & Papan Setoran Harian</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="b bw bsm ${shActiveSubtab === 'grid' ? 'active-subtab' : ''}" onclick="switchShSubtab('grid')"><i class="fas fa-table"></i> Papan Nilai Surah (Juz 30)</button>
+        <button class="b bw bsm ${shActiveSubtab === 'harian' ? 'active-subtab' : ''}" onclick="switchShSubtab('harian')"><i class="fas fa-calendar-check"></i> Jurnal Absensi Setoran Harian</button>
+      </div>
+    </div>
+    <p class="sdesc" style="margin-top:0">Pantau setoran hafalan harian dan rekap nilai surah santri per kelas. Klik sel untuk mencatat atau mengubah nilai secara cepat!</p>
+
+    <!-- CONTROL PANEL -->
+    <div class="cd" style="padding:16px;margin-bottom:14px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <!-- Class Filter -->
+        <div class="fi" style="margin:0; width:150px">
+          <label style="font-size:10px;text-transform:uppercase;font-weight:700">Pilih Kelas</label>
+          <select class="input" id="shKelas" style="height:38px" onchange="shSelectedKelas=this.value;renderSetoranharian()">
+            ${classesList.map(c => `<option value="${c}" ${shSelectedKelas === c ? 'selected' : ''}>Kelas ${c}</option>`).join('')}
+          </select>
+        </div>
+
+        <!-- Month Filter -->
+        <div class="fi" id="shMonthContainer" style="margin:0; width:150px; display: ${shActiveSubtab === 'harian' ? 'block' : 'none'}">
+          <label style="font-size:10px;text-transform:uppercase;font-weight:700">Pilih Bulan</label>
+          <input class="input" type="month" id="shBulan" style="height:38px" value="${shSelectedMonth}" onchange="shSelectedMonth=this.value;renderSetoranharian()">
+        </div>
+
+        <div style="flex:1"></div>
+
+        <!-- Export Buttons -->
+        <div style="display:flex;gap:8px">
+          <button class="b bb bsm" onclick="exportExcelSetoranHarian()"><i class="fas fa-file-excel"></i> Export Excel</button>
+          <button class="b bg bsm" style="background:var(--g)" onclick="openTambahSetoranHarianModal()"><i class="fas fa-plus"></i> Catat Setoran Cepat</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE AREA -->
+    <div class="cd" style="overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--brd);font-size:14px;font-weight:700;color:var(--td);display:flex;justify-content:space-between;align-items:center">
+        <span id="shTableTitle"><i class="fas fa-list" style="color:var(--b);margin-right:5px"></i>${shActiveSubtab === 'grid' ? 'Papan Nilai Surah — Kelas ' + shSelectedKelas : 'Jurnal Absensi Setoran — Kelas ' + shSelectedKelas}</span>
+        <span class="mono" style="font-size:11px;color:var(--tl);font-weight:normal" id="shTableLegend">
+          ${shActiveSubtab === 'grid' ? 'Format cell: Nilai / "TAHSIN" / "-"' : "Legenda: Z (Ziyadah) · M (Muraja'ah) · T (Tahsin)"}
+        </span>
+      </div>
+      <div id="shTableContainer" class="sh-table-container">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  `;
+
+  if (shActiveSubtab === 'grid') {
+    populateGridTable();
+  } else {
+    populateHarianTable();
+  }
+}
+
+function getJuzForSurah(surah) {
+  if (surah === 'Al-Fatihah') return 1;
+  return 30; 
+}
+
+function populateGridTable() {
+  const container = document.getElementById('shTableContainer');
+  if (!container) return;
+
+  const filteredStudents = data.students.filter(s => s.kelas === shSelectedKelas).sort((a,b) => a.name.localeCompare(b.name));
+  if (filteredStudents.length === 0) {
+    container.innerHTML = `<div class="empty"><i class="fas fa-inbox"></i><p>Tidak ada data siswa untuk kelas ini.</p></div>`;
+    return;
+  }
+
+  let html = `
+    <table class="sh-table">
+      <thead>
+        <tr>
+          <th style="width:50px">No</th>
+          <th class="sticky-col" style="width:200px">Nama Lengkap</th>
+          <th style="width:80px">Kelas</th>
+          ${JUZ30_SURAHS.map(s => `<th>${s}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  filteredStudents.forEach((student, index) => {
+    html += `
+      <tr>
+        <td style="text-align:center">${index + 1}</td>
+        <td class="sticky-col">${student.name}</td>
+        <td><span class="bd bd-b">${student.kelas}</span></td>
+    `;
+
+    JUZ30_SURAHS.forEach(surah => {
+      const sets = data.setoran.filter(x => x.studentId === student.id && x.surah && x.surah.toLowerCase().trim() === surah.toLowerCase().trim());
+      let displayVal = '-';
+      let cellClass = 'cell-empty';
+
+      if (sets.length > 0) {
+        const setoran = sets[0]; 
+        if (setoran.jenis === 'Tahsin') {
+          displayVal = 'TAHSIN';
+          cellClass = 'cell-tahsin';
+        } else if (setoran.nilai !== null && setoran.nilai !== undefined) {
+          displayVal = setoran.nilai;
+          cellClass = setoran.jenis === "Muraja'ah" ? 'cell-murajah' : 'cell-score';
+        } else {
+          displayVal = '✓';
+          cellClass = 'cell-score';
+        }
+      }
+
+      html += `
+        <td class="sh-cell" onclick="openShEditModal(${student.id}, '${surah.replace(/'/g, "\'")}')" title="Klik untuk ubah nilai ${student.name} - ${surah}">
+          <span class="${cellClass}">${displayVal}</span>
+        </td>
+      `;
+    });
+
+    html += `</tr>`;
+  });
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+  container.innerHTML = html;
+}
+
+function getSetoransOnDate(studentId, dObj) {
+  const dStr = dObj.toDateString();
+  return data.setoran.filter(x => {
+    if (x.studentId !== studentId) return false;
+    const ed = entryDate(x);
+    return ed && ed.toDateString() === dStr;
+  });
+}
+
+function populateHarianTable() {
+  const container = document.getElementById('shTableContainer');
+  if (!container) return;
+
+  const filteredStudents = data.students.filter(s => s.kelas === shSelectedKelas).sort((a,b) => a.name.localeCompare(b.name));
+  if (filteredStudents.length === 0) {
+    container.innerHTML = `<div class="empty"><i class="fas fa-inbox"></i><p>Tidak ada data siswa untuk kelas ini.</p></div>`;
+    return;
+  }
+
+  const [year, month] = shSelectedMonth.split('-').map(Number);
+  const daysInMonth = new Date(year, month, 0).getDate();
+
+  const daysList = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    daysList.push(new Date(year, month - 1, d));
+  }
+
+  const indonesianDays = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+
+  let html = `
+    <table class="sh-table">
+      <thead>
+        <tr>
+          <th style="width:50px">No</th>
+          <th class="sticky-col" style="width:200px">Nama Lengkap</th>
+          <th style="width:80px">Kelas</th>
+          ${daysList.map(d => {
+            const dateNum = d.getDate();
+            const dayName = indonesianDays[d.getDay()];
+            const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+            const thStyle = isWeekend ? 'background: #fdf2f0; color: var(--r); font-weight: bold;' : '';
+            return `<th style="${thStyle}">${dateNum}<br><span style="font-size:9px; font-weight:normal">${dayName}</span></th>`;
+          }).join('')}
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  filteredStudents.forEach((student, index) => {
+    html += `
+      <tr>
+        <td style="text-align:center">${index + 1}</td>
+        <td class="sticky-col">${student.name}</td>
+        <td><span class="bd bd-b">${student.kelas}</span></td>
+    `;
+
+    daysList.forEach(dObj => {
+      const sets = getSetoransOnDate(student.id, dObj);
+      let cellContent = '';
+
+      if (sets.length > 0) {
+        if (sets.length === 1) {
+          const x = sets[0];
+          let badgeClass = 'sh-cal-ziyadah';
+          let letter = 'Z';
+          if (x.jenis === "Muraja'ah") { badgeClass = 'sh-cal-murajah'; letter = 'M'; }
+          else if (x.jenis === 'Tahsin') { badgeClass = 'sh-cal-tahsin'; letter = 'T'; }
+          
+          const tooltip = `${x.jenis}${x.juz ? ' Juz ' + x.juz : ''}${x.surah ? ' · ' + x.surah : ''}${x.nilai !== null ? ' (Nilai: ' + x.nilai + ')' : ''}`;
+          cellContent = `<div class="sh-cal-cell ${badgeClass}" title="${tooltip}">${letter}</div>`;
+        } else {
+          const tooltip = sets.map(x => `${x.jenis}${x.juz ? ' Juz ' + x.juz : ''}${x.surah ? ' · ' + x.surah : ''}`).join(', ');
+          cellContent = `<div class="sh-cal-cell sh-cal-multiple" title="${tooltip}">${sets.length}</div>`;
+        }
+      } else {
+        cellContent = `<div class="sh-cal-cell sh-cal-empty" title="Belum ada setoran">+</div>`;
+      }
+
+      html += `
+        <td onclick="openDayLogModal(${student.id}, '${dObj.toISOString().split('T')[0]}')">
+          <div style="display:flex; justify-content:center; align-items:center">${cellContent}</div>
+        </td>
+      `;
+    });
+
+    html += `</tr>`;
+  });
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+  container.innerHTML = html;
+}
+
+function formatDateToLocale(d) {
+  return d.toLocaleDateString('id-ID'); 
+}
+
+function todayISO() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function openShEditModal(studentId, surahName) {
+  const student = data.students.find(s => s.id === studentId);
+  if (!student) return;
+  
+  const sets = data.setoran.filter(x => x.studentId === studentId && x.surah && x.surah.toLowerCase().trim() === surahName.toLowerCase().trim());
+  const existing = sets.length ? sets[0] : null; 
+  
+  const existingNilai = existing ? (existing.nilai !== null ? existing.nilai : '') : '';
+  const existingJenis = existing ? existing.jenis : 'Ziyadah';
+  const existingKet = existing ? (existing.keterangan || '') : '';
+  const existingDate = existing ? (existing.ts ? new Date(existing.ts).toISOString().split('T')[0] : todayISO()) : new Date().toISOString().split('T')[0];
+
+  const html = `
+    <div class="mo-head">
+      <div class="mo-icon" style="background:var(--p50);color:var(--pl)"><i class="fas fa-edit"></i></div>
+      <div>
+        <div style="font-family:'Fraunces';font-weight:700;font-size:16px;color:var(--td)">Ubah Setoran Surah</div>
+        <div style="font-size:12px;color:var(--tl)">${student.name} (${student.kelas}) · ${surahName}</div>
+      </div>
+    </div>
+    <div class="mo-body">
+      <div class="g2">
+        <div class="fi">
+          <label>Jenis Setoran</label>
+          <select id="moShJenis" class="input">
+            <option value="Ziyadah" ${existingJenis === 'Ziyadah' ? 'selected' : ''}>Ziyadah (Hafalan Baru)</option>
+            <option value="Muraja'ah" ${existingJenis === "Muraja'ah" ? 'selected' : ''}>Muraja'ah (Pengulangan)</option>
+            <option value="Tahsin" ${existingJenis === 'Tahsin' ? 'selected' : ''}>Tahsin (Perbaikan Bacaan)</option>
+          </select>
+        </div>
+        <div class="fi">
+          <label>Nilai (0–100)</label>
+          <input type="number" id="moShNilai" class="input" min="0" max="100" value="${existingNilai}" placeholder="mis. 90">
+        </div>
+      </div>
+      <div class="g2">
+        <div class="fi">
+          <label>Tanggal Setoran</label>
+          <input type="date" id="moShDate" class="input" value="${existingDate}">
+        </div>
+        <div class="fi">
+          <label>Catatan / Keterangan</label>
+          <input type="text" id="moShKet" class="input" value="${existingKet}" placeholder="Catatan tambahan...">
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--tl);margin-top:8px">
+        <i class="fas fa-info-circle"></i> Jika nilai dikosongkan, data setoran untuk surah ini akan dihapus.
+      </div>
+    </div>
+    <div class="mo-foot">
+      <button class="b bg" onclick="closeModal()">Batalkan</button>
+      <button class="b bp" style="background:var(--g)" onclick="saveShEdit(${studentId}, '${surahName.replace(/'/g, "\'")}')"><i class="fas fa-check"></i> Simpan Perubahan</button>
+    </div>
+  `;
+  openModal(html);
+}
+
+function saveShEdit(studentId, surahName) {
+  const student = data.students.find(s => s.id === studentId);
+  if (!student) return;
+
+  const sets = data.setoran.filter(x => x.studentId === studentId && x.surah && x.surah.toLowerCase().trim() === surahName.toLowerCase().trim());
+  const existing = sets.length ? sets[0] : null;
+  
+  const dateInput = document.getElementById('moShDate').value;
+  const ts = dateInput ? new Date(dateInput).getTime() : Date.now();
+  const dateFormatted = dateInput ? formatDateToLocale(new Date(dateInput)) : new Date().toLocaleString('id-ID');
+
+  const jenis = document.getElementById('moShJenis').value;
+  const nilaiRaw = document.getElementById('moShNilai').value.trim();
+  const ket = document.getElementById('moShKet').value.trim();
+  
+  if (nilaiRaw === '' && jenis !== 'Tahsin') {
+    data.setoran = data.setoran.filter(x => !(x.studentId === studentId && x.surah && x.surah.toLowerCase().trim() === surahName.toLowerCase().trim()));
+    logAction(`Menghapus setoran Surah ${surahName} untuk ${student.name}`);
+  } else {
+    const nilai = nilaiRaw !== '' ? parseInt(nilaiRaw) : null;
+    if (existing) {
+      existing.jenis = jenis;
+      existing.nilai = nilai;
+      existing.keterangan = ket;
+      existing.ts = ts;
+      existing.date = dateFormatted;
+      logAction(`Memperbarui setoran ${jenis} Surah ${surahName}: ${student.name}`);
+    } else {
+      const juz = getJuzForSurah(surahName);
+      const entry = {
+        id: Date.now() + Math.random(),
+        ts: ts,
+        studentId: studentId,
+        jenis: jenis,
+        juz: juz,
+        surah: surahName,
+        halaman: '',
+        keterangan: ket,
+        marked: false,
+        nilai: nilai,
+        date: dateFormatted,
+        user: data.credentials.username
+      };
+      data.setoran.unshift(entry);
+      logAction(`Menambah setoran ${jenis} Surah ${surahName}: ${student.name}`);
+    }
+  }
+  saveData();
+  closeModal();
+  renderSetoranharian();
+  toast('Perubahan berhasil disimpan.');
+}
+
+function openDayLogModal(studentId, dateStr) {
+  const student = data.students.find(s => s.id === studentId);
+  if (!student) return;
+
+  const dObj = new Date(dateStr);
+  const displayDateStr = dObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  const sets = getSetoransOnDate(studentId, dObj);
+
+  let html = `
+    <div class="mo-head">
+      <div class="mo-icon" style="background:var(--p50);color:var(--pl)"><i class="fas fa-calendar-check"></i></div>
+      <div>
+        <div style="font-family:'Fraunces';font-weight:700;font-size:16px;color:var(--td)">Setoran Harian</div>
+        <div style="font-size:12px;color:var(--tl)">${student.name} · ${displayDateStr}</div>
+      </div>
+    </div>
+    <div class="mo-body" style="max-height:50vh; overflow-y:auto">
+  `;
+
+  if (sets.length > 0) {
+    html += `<div style="font-weight:700; font-size:13px; color:var(--td); margin-bottom:8px">Setoran yang Terbaca:</div>`;
+    sets.forEach((x, idx) => {
+      html += `
+        <div class="hi" style="margin-bottom:8px; display:flex; align-items:center">
+          <i class="fas ${setoranIcon(x.jenis)}" style="color:${setoranColor(x.jenis)}; margin-right:10px"></i>
+          <div style="flex:1">
+            <div style="font-size:13px"><strong>${x.jenis}</strong>${x.juz ? ' · Juz ' + x.juz : ''}${x.surah ? ' · ' + x.surah : ''}${x.halaman ? ' · hal. ' + x.halaman : ''}</div>
+            <div style="font-size:11px; color:var(--tl)">${x.keterangan ? x.keterangan : 'Tanpa catatan'}</div>
+          </div>
+          <div style="margin-right:12px">
+            ${x.nilai !== null && x.nilai !== undefined ? `<span class="mono" style="font-weight:700; color:var(--g); font-size:14px">${x.nilai}</span>` : '<span class="bd bd-t">Tanpa Nilai</span>'}
+          </div>
+          <button class="b br bxs" onclick="deleteSetoranDirect(${x.id}, '${dateStr}', ${studentId})" title="Hapus setoran"><i class="fas fa-trash"></i></button>
+        </div>
+      `;
+    });
+  } else {
+    html += `
+      <div class="empty" style="padding:10px 0; margin-bottom:12px">
+        <i class="fas fa-info-circle"></i>
+        <p>Belum ada catatan setoran untuk hari ini.</p>
+      </div>
+    `;
+  }
+
+  html += `
+    <hr style="border:0; border-top:1px solid var(--brd); margin:14px 0">
+    <div style="font-weight:700; font-size:13px; color:var(--td); margin-bottom:12px"><i class="fas fa-plus" style="color:var(--g)"></i> Tambah Setoran Baru untuk Hari Ini</div>
+    
+    <div class="g2">
+      <div class="fi">
+        <label>Jenis Setoran</label>
+        <select id="dhJenis" class="input">
+          <option value="Ziyadah">Ziyadah (Hafalan Baru)</option>
+          <option value="Muraja'ah">Muraja'ah (Pengulangan)</option>
+          <option value="Tahsin">Tahsin (Perbaikan Bacaan)</option>
+        </select>
+      </div>
+      <div class="fi">
+        <label>Juz (1–30)</label>
+        <select id="dhJuz" class="input">
+          ${Array.from({length:30}, (_,i) => i+1).map(j => `<option value="${j}">Juz ${j}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    
+    <div class="g2">
+      <div class="fi">
+        <label>Surah (opsional)</label>
+        <input type="text" id="dhSurah" class="input" placeholder="mis. Al-Kautsar" list="juz30datalist">
+        <datalist id="juz30datalist">
+          ${JUZ30_SURAHS.map(s => `<option value="${s}">`).join('')}
+        </datalist>
+      </div>
+      <div class="fi">
+        <label>Halaman (opsional)</label>
+        <input type="text" id="dhHal" class="input" placeholder="mis. 1-2">
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="fi">
+        <label>Nilai (0–100)</label>
+        <input type="number" id="dhNilai" class="input" placeholder="mis. 90" min="0" max="100">
+      </div>
+      <div class="fi">
+        <label>Keterangan (opsional)</label>
+        <input type="text" id="dhKet" class="input" placeholder="Catatan tambahan...">
+      </div>
+    </div>
+  </div>
+  <div class="mo-foot">
+    <button class="b bg" onclick="closeModal()">Tutup</button>
+    <button class="b bp" style="background:var(--g)" onclick="addSetoranHarianDirect(${studentId}, '${dateStr}')"><i class="fas fa-paper-plane"></i> Tambah Setoran</button>
+  </div>
+  `;
+  openModal(html);
+}
+
+function addSetoranHarianDirect(studentId, dateStr) {
+  const student = data.students.find(s => s.id === studentId);
+  if (!student) return;
+
+  const jenis = document.getElementById('dhJenis').value;
+  const juz = parseInt(document.getElementById('dhJuz').value) || null;
+  const surah = document.getElementById('dhSurah').value.trim();
+  const hal = document.getElementById('dhHal').value.trim();
+  const ket = document.getElementById('dhKet').value.trim();
+  const nilaiRaw = document.getElementById('dhNilai').value.trim();
+  const nilai = nilaiRaw === '' ? null : parseInt(nilaiRaw);
+
+  if (!juz || juz < 1 || juz > 30) {
+    toast('Pilih juz yang valid (1–30).', 'error');
+    return;
+  }
+  if (jenis !== 'Tahsin' && (nilai === null || isNaN(nilai) || nilai < 0 || nilai > 100)) {
+    toast('Nilai wajib diisi antara 0–100.', 'error');
+    return;
+  }
+
+  const dObj = new Date(dateStr);
+  const ts = dObj.getTime();
+  const dateFormatted = formatDateToLocale(dObj);
+
+  const entry = {
+    id: Date.now() + Math.random(),
+    ts: ts,
+    studentId: studentId,
+    jenis: jenis,
+    juz: juz,
+    surah: surah,
+    halaman: hal,
+    keterangan: ket,
+    marked: false,
+    nilai: nilai,
+    date: dateFormatted,
+    user: data.credentials.username
+  };
+
+  data.setoran.unshift(entry);
+  logAction(`Setoran ${jenis} Juz ${juz} (${surah}): ${student.name} pada ${dateFormatted}`);
+  saveData();
+  
+  openDayLogModal(studentId, dateStr);
+  renderSetoranharian();
+  toast(`Setoran ${jenis} dicatat.`);
+}
+
+function deleteSetoranDirect(id, dateStr, studentId) {
+  if (confirm('Apakah Anda yakin ingin menghapus catatan setoran ini?')) {
+    data.setoran = data.setoran.filter(x => x.id !== id);
+    logAction(`Menghapus catatan setoran ID ${id}`);
+    saveData();
+    openDayLogModal(studentId, dateStr);
+    renderSetoranharian();
+    toast('Setoran berhasil dihapus.');
+  }
+}
+
+function openTambahSetoranHarianModal() {
+  const classesList = [...new Set(data.students.map(s => s.kelas))].sort();
+  const defaultClass = shSelectedKelas || classesList[0];
+  const filteredStudents = data.students.filter(s => s.kelas === defaultClass).sort((a,b) => a.name.localeCompare(b.name));
+
+  const html = `
+    <div class="mo-head">
+      <div class="mo-icon" style="background:var(--p50);color:var(--pl)"><i class="fas fa-plus"></i></div>
+      <div>
+        <div style="font-family:'Fraunces';font-weight:700;font-size:16px;color:var(--td)">Catat Setoran Cepat</div>
+        <div style="font-size:12px;color:var(--tl)">Catat setoran hafalan santri secara cepat untuk Kelas ${defaultClass}</div>
+      </div>
+    </div>
+    <div class="mo-body">
+      <div class="g2">
+        <div class="fi">
+          <label>Peserta Didik</label>
+          <select id="moFastStudent" class="input">
+            ${filteredStudents.map(s => `<option value="${s.id}">${s.name} (${s.kelas})</option>`).join('')}
+          </select>
+        </div>
+        <div class="fi">
+          <label>Jenis Setoran</label>
+          <select id="moFastJenis" class="input">
+            <option value="Ziyadah">Ziyadah (Hafalan Baru)</option>
+            <option value="Muraja'ah">Muraja'ah (Pengulangan)</option>
+            <option value="Tahsin">Tahsin (Perbaikan Bacaan)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="fi">
+          <label>Juz (1-30)</label>
+          <select id="moFastJuz" class="input">
+            ${Array.from({length:30}, (_,i) => i+1).map(j => `<option value="${j}">Juz ${j}</option>`).join('')}
+          </select>
+        </div>
+        <div class="fi">
+          <label>Surah (opsional)</label>
+          <input type="text" id="moFastSurah" class="input" placeholder="mis. Al-Baqarah" list="juz30datalistFast">
+          <datalist id="juz30datalistFast">
+            ${JUZ30_SURAHS.map(s => `<option value="${s}">`).join('')}
+          </datalist>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="fi">
+          <label>Nilai (0–100)</label>
+          <input type="number" id="moFastNilai" class="input" placeholder="mis. 90" min="0" max="100">
+        </div>
+        <div class="fi">
+          <label>Tanggal Setoran</label>
+          <input type="date" id="moFastDate" class="input" value="${new Date().toISOString().split('T')[0]}">
+        </div>
+      </div>
+
+      <div class="fi">
+        <label>Keterangan / Catatan (opsional)</label>
+        <input type="text" id="moFastKet" class="input" placeholder="Catatan tambahan...">
+      </div>
+    </div>
+    <div class="mo-foot">
+      <button class="b bg" onclick="closeModal()">Batalkan</button>
+      <button class="b bp" style="background:var(--g)" onclick="saveFastSetoran()"><i class="fas fa-check"></i> Simpan Setoran</button>
+    </div>
+  `;
+  openModal(html);
+}
+
+function saveFastSetoran() {
+  const sid = parseInt(document.getElementById('moFastStudent').value);
+  if (!sid) return;
+  const s = data.students.find(x => x.id === sid);
+  if (!s) return;
+
+  const jenis = document.getElementById('moFastJenis').value;
+  const juz = parseInt(document.getElementById('moFastJuz').value) || null;
+  const surah = document.getElementById('moFastSurah').value.trim();
+  const ket = document.getElementById('moFastKet').value.trim();
+  const nilaiRaw = document.getElementById('moFastNilai').value.trim();
+  const nilai = nilaiRaw === '' ? null : parseInt(nilaiRaw);
+  const dateInput = document.getElementById('moFastDate').value;
+
+  if (!juz || juz < 1 || juz > 30) {
+    toast('Pilih juz yang disetorkan (1–30).', 'error');
+    return;
+  }
+  if (jenis !== 'Tahsin' && (nilai === null || isNaN(nilai) || nilai < 0 || nilai > 100)) {
+    toast('Nilai wajib diisi, antara 0–100.', 'error');
+    return;
+  }
+
+  const dObj = dateInput ? new Date(dateInput) : new Date();
+  const ts = dObj.getTime();
+  const dateFormatted = dateInput ? formatDateToLocale(dObj) : new Date().toLocaleString('id-ID');
+
+  const entry = {
+    id: Date.now() + Math.random(),
+    ts: ts,
+    studentId: sid,
+    jenis: jenis,
+    juz: juz,
+    surah: surah,
+    halaman: '',
+    keterangan: ket,
+    marked: false,
+    nilai: nilai,
+    date: dateFormatted,
+    user: data.credentials.username
+  };
+
+  data.setoran.unshift(entry);
+  logAction(`Setoran ${jenis} Juz ${juz}: ${s.name}`);
+  saveData();
+  closeModal();
+  renderSetoranharian();
+  toast(`Setoran ${jenis} dicatat.`);
+}
+
+function exportExcelSetoranHarian() {
+  if (typeof XLSX === 'undefined') {
+    toast('Library Excel belum siap. Periksa koneksi internet lalu muat ulang halaman.', 'error');
+    return;
+  }
+
+  const filteredStudents = data.students.filter(s => s.kelas === shSelectedKelas).sort((a,b) => a.name.localeCompare(b.name));
+  if (filteredStudents.length === 0) {
+    toast('Tidak ada data siswa untuk diekspor.', 'error');
+    return;
+  }
+
+  const wb = XLSX.utils.book_new();
+
+  if (shActiveSubtab === 'grid') {
+    const headers = ['No', 'Nama Siswa', 'Kelas', ...JUZ30_SURAHS];
+    const rows = [
+      ['LAPORAN CAPAIAN HAFALAN SURAH (JUZ 30)'],
+      ['SMA ISLAM AL AZHAR 33 JATIMAKMUR'],
+      ['Kelas:', shSelectedKelas],
+      ['Semester:', semesterLabel()],
+      ['Tahun Ajaran:', '2025/2026'],
+      [],
+      headers
+    ];
+
+    filteredStudents.forEach((student, index) => {
+      const rowData = [index + 1, student.name, student.kelas];
+      JUZ30_SURAHS.forEach(surah => {
+        const sets = data.setoran.filter(x => x.studentId === student.id && x.surah && x.surah.toLowerCase().trim() === surah.toLowerCase().trim());
+        if (sets.length > 0) {
+          const setoran = sets[0];
+          if (setoran.jenis === 'Tahsin') {
+            rowData.push('TAHSIN');
+          } else if (setoran.nilai !== null && setoran.nilai !== undefined) {
+            rowData.push(setoran.nilai);
+          } else {
+            rowData.push('✓');
+          }
+        } else {
+          rowData.push('-');
+        }
+      });
+      rows.push(rowData);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+
+    ws['!cols'] = [
+      { wch: 6 },  
+      { wch: 35 }, 
+      { wch: 10 }, 
+      ...JUZ30_SURAHS.map(() => ({ wch: 12 }))
+    ];
+
+    XLSX.utils.book_append_sheet(wb, ws, 'Papan Nilai Surah');
+    XLSX.writeFile(wb, `Papan_Nilai_Surah_Kelas_${shSelectedKelas}_${shSelectedMonth}.xlsx`);
+    toast('Papan Nilai Surah berhasil diekspor ke Excel!');
+    logAction(`Mengekspor Papan Nilai Surah Kelas ${shSelectedKelas}`);
+  } else {
+    const [year, month] = shSelectedMonth.split('-').map(Number);
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const daysHeader = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      daysHeader.push(d);
+    }
+
+    const headers = ['No', 'Nama Siswa', 'Kelas', ...daysHeader];
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const displayMonthName = monthNames[month - 1] + ' ' + year;
+
+    const rows = [
+      ['JURNAL ABSENSI SETORAN HARIAN SANTRI'],
+      ['SMA ISLAM AL AZHAR 33 JATIMAKMUR'],
+      ['Kelas:', shSelectedKelas],
+      ['Bulan:', displayMonthName],
+      [],
+      headers
+    ];
+
+    filteredStudents.forEach((student, index) => {
+      const rowData = [index + 1, student.name, student.kelas];
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dObj = new Date(year, month - 1, d);
+        const sets = getSetoransOnDate(student.id, dObj);
+        if (sets.length > 0) {
+          const types = sets.map(x => x.jenis[0].toUpperCase()); 
+          rowData.push(types.join(','));
+        } else {
+          rowData.push('-');
+        }
+      }
+      rows.push(rowData);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+
+    ws['!cols'] = [
+      { wch: 6 },  
+      { wch: 35 }, 
+      { wch: 10 }, 
+      ...daysHeader.map(() => ({ wch: 5 }))
+    ];
+
+    XLSX.utils.book_append_sheet(wb, ws, 'Absensi Setoran');
+    XLSX.writeFile(wb, `Absensi_Setoran_Kelas_${shSelectedKelas}_${shSelectedMonth}.xlsx`);
+    toast('Jurnal Absensi Setoran berhasil diekspor ke Excel!');
+    logAction(`Mengekspor Absensi Setoran Kelas ${shSelectedKelas} Bulan ${shSelectedMonth}`);
+  }
 }
 </script>
 </body>
